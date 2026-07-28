@@ -22,6 +22,29 @@ const commands = [
         .setDescription("Why this member is being kicked")
         .setRequired(false)
     ),
+  new SlashCommandBuilder()
+    .setName("ban")
+    .setDescription("Ban a member from the server")
+    .addUserOption((option) =>
+        option
+        .setName("target")
+        .setDescription("The member to ban")
+        .setRequired(true)
+    )
+    .addStringOption((option) =>
+        option
+        .setName("reason")
+        .setDescription("Why is buddy being banned")
+        .setRequired(false)
+    )
+    .addIntegerOption((option) =>
+        option
+        .setName("delete_days")
+        .setDescription("Days of message history to delete (0-7)")
+        .setRequired(false)
+        .setMinValue(0)
+        .setMaxValue(7)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN!);

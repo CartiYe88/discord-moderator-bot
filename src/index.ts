@@ -43,6 +43,26 @@ client.on("interactionCreate", async (interaction) => {
   await interaction.reply(`Kicked **${target.tag}** — Reason: ${reason}`);
 }
 
+  if (interaction.commandName === "ban") {
+  const target = interaction.options.getUser("target", true);
+  const reason = interaction.options.getString("reason") ?? "No reason provided";
+  const deleteDays = interaction.options.getInteger("delete_days") ?? 0;
+
+  const member = await interaction.guild?.members.fetch(target.id).catch(() => null);
+
+  if (member && !member.bannable) {
+    await interaction.reply({ content: "I can't ban this member (they may have a higher role than me).", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  await interaction.guild?.members.ban(target.id, {
+    reason,
+    deleteMessageSeconds: deleteDays * 24 * 60 * 60,
+  });
+
+  await interaction.reply(` Banned **${target.tag}** — Reason: ${reason}`);
+}
+
 });
 
 
