@@ -23,7 +23,7 @@ client.on("interactionCreate", async (interaction) => {
     await interaction.reply("Ella!!! 🎉");
   }
 
-  if (interaction.commandName === "kick") {
+if (interaction.commandName === "kick") {
   const target = interaction.options.getUser("target", true);
   const reason = interaction.options.getString("reason") ?? "No reason provided";
 
@@ -43,7 +43,7 @@ client.on("interactionCreate", async (interaction) => {
   await interaction.reply(`Kicked **${target.tag}** — Reason: ${reason}`);
 }
 
-  if (interaction.commandName === "ban") {
+if (interaction.commandName === "ban") {
   const target = interaction.options.getUser("target", true);
   const reason = interaction.options.getString("reason") ?? "No reason provided";
   const deleteDays = interaction.options.getInteger("delete_days") ?? 0;
@@ -61,6 +61,27 @@ client.on("interactionCreate", async (interaction) => {
   });
 
   await interaction.reply(` Banned **${target.tag}** — Reason: ${reason}`);
+}
+
+if (interaction.commandName === "unban") {
+  const username = interaction.options.getString("username", true);
+
+  try {
+    const bans = await interaction.guild?.bans.fetch();
+    const bannedUser = bans?.find(
+      (ban) => ban.user.username.toLowerCase() === username.toLowerCase()
+    );
+
+    if (!bannedUser) {
+      await interaction.reply({ content: "Couldn't find a banned user with that username.", flags: MessageFlags.Ephemeral });
+      return;
+    }
+
+    await interaction.guild?.members.unban(bannedUser.user.id);
+    await interaction.reply(`Yessirski!! Unbanned **${bannedUser.user.tag}**`);
+  } catch (error) {
+    await interaction.reply({ content: "Something went wrong trying to unban that user.", flags: MessageFlags.Ephemeral });
+  }
 }
 
 });

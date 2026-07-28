@@ -45,6 +45,16 @@ const commands = [
         .setMinValue(0)
         .setMaxValue(7)
     ),
+
+  new SlashCommandBuilder()
+    .setName("unban")
+    .setDescription("Unban a user by their username")
+    .addStringOption((option) =>
+        option
+        .setName("username")
+        .setDescription("The user's exact username")
+        .setRequired(true)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN!);
