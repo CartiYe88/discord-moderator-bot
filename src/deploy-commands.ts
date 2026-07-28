@@ -55,6 +55,30 @@ const commands = [
         .setDescription("The user's exact username")
         .setRequired(true)
     ),
+
+new SlashCommandBuilder()
+    .setName("timeout")
+    .setDescription("Timeout a member for a set duration")
+    .addUserOption((option) =>
+        option
+        .setName("target")
+        .setDescription("The member to timeout")
+        .setRequired(true)
+    )
+    .addIntegerOption((option) =>
+        option
+        .setName("minutes")
+        .setDescription("Duration in minutes (max 40320 = 28 days)")
+        .setRequired(true)
+        .setMinValue(1)
+        .setMaxValue(40320)
+    )
+    .addStringOption((option) =>
+        option
+        .setName("reason")
+        .setDescription("Why this member is being timed out")
+        .setRequired(false)
+    ),
 ].map((command) => command.toJSON());
 
 const rest = new REST().setToken(process.env.DISCORD_TOKEN!);

@@ -84,6 +84,28 @@ if (interaction.commandName === "unban") {
   }
 }
 
+if (interaction.commandName === "timeout") {
+  const target = interaction.options.getUser("target", true);
+  const minutes = interaction.options.getInteger("minutes", true);
+  const reason = interaction.options.getString("reason") ?? "No reason provided";
+
+  const member = await interaction.guild?.members.fetch(target.id).catch(() => null);
+
+  if (!member) {
+    await interaction.reply({ content: "Couldn't find that member in this server.", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  if (!member.moderatable) {
+    await interaction.reply({ content: "I can't timeout this member (they may have a higher role than me).", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  const durationMs = minutes * 60 * 1000;
+  await member.timeout(durationMs, reason);
+
+  await interaction.reply(` YOUR COOKED Timed out **${target.tag}** for ${minutes} minute(s) — Reason: ${reason}`);
+}
 });
 
 
