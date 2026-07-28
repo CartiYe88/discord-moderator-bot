@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, GatewayIntentBits, MessageFlags } from "discord.js";
 import * as dotenv from "dotenv";
 
 dotenv.config();
@@ -22,6 +22,27 @@ client.on("interactionCreate", async (interaction) => {
   if (interaction.commandName === "prime") {
     await interaction.reply("Ella!!! 🎉");
   }
+
+  if (interaction.commandName === "kick") {
+  const target = interaction.options.getUser("target", true);
+  const reason = interaction.options.getString("reason") ?? "No reason provided";
+
+  const member = await interaction.guild?.members.fetch(target.id);
+
+  if (!member) {
+    await interaction.reply({ content: "Couldn't find that member in this server.", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  if (!member.kickable) {
+    await interaction.reply({ content: "I can't kick this member (they may have a higher role than me).", flags: MessageFlags.Ephemeral });
+    return;
+  }
+
+  await member.kick(reason);
+  await interaction.reply(`Kicked **${target.tag}** — Reason: ${reason}`);
+}
+
 });
 
 
