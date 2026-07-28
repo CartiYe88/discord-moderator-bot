@@ -16,4 +16,13 @@ client.once("clientReady", () => {
   console.log(`Logged in as ${client.user?.tag}`);
 });
 
+client.on("interactionCreate", async (interaction) => {
+  if (!interaction.isChatInputCommand()) return;
+
+  if (interaction.commandName === "prime") {
+    await interaction.reply("Ella!!! 🎉");
+  }
+});
+
+
 client.login(process.env.DISCORD_TOKEN);
