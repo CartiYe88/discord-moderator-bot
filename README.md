@@ -4,13 +4,13 @@ A Discord moderation bot built with [discord.js](https://discord.js.org/) v14 an
 
 ## Commands
 
-| Command | Description | Options |
-|---|---|---|
-| `/prime` | Replies with a greeting — useful for checking the bot is alive | — |
-| `/kick` | Kicks a member from the server | `target` (user, required), `reason` (string, optional) |
-| `/ban` | Bans a member from the server | `target` (user, required), `reason` (string, optional), `delete_days` (integer 0-7, optional) — days of message history to delete |
-| `/unban` | Unbans a user by their exact username | `username` (string, required) |
-| `/timeout` | Times out a member for a set duration | `target` (user, required), `minutes` (integer 1-40320, required), `reason` (string, optional) |
+| Command    | Description                                                    | Options                                                                                                                           |
+| ---------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `/prime`   | Replies with a greeting — useful for checking the bot is alive | —                                                                                                                                 |
+| `/kick`    | Kicks a member from the server                                 | `target` (user, required), `reason` (string, optional)                                                                            |
+| `/ban`     | Bans a member from the server                                  | `target` (user, required), `reason` (string, optional), `delete_days` (integer 0-7, optional) — days of message history to delete |
+| `/unban`   | Unbans a user by their exact username                          | `username` (string, required)                                                                                                     |
+| `/timeout` | Times out a member for a set duration                          | `target` (user, required), `minutes` (integer 1-40320, required), `reason` (string, optional)                                     |
 
 Each destructive command checks Discord role hierarchy before acting (e.g. it won't try to kick/ban/timeout a member with an equal or higher role than the bot) and replies with an ephemeral error if the action isn't possible.
 
@@ -65,3 +65,9 @@ Once running, you should see `Logged in as <bot-tag>` in the console, and the sl
 - [discord.js](https://discord.js.org/) — Discord API client
 - [TypeScript](https://www.typescriptlang.org/) — compiled/run via [tsx](https://github.com/privatenumber/tsx)
 - [dotenv](https://github.com/motdotla/dotenv) — loads environment variables from `.env`
+
+## Screenshots
+
+![Screenshot](images/discordBotImg1.png)
+![Screenshot](images/discordBotImg2.png)
+![Screenshot](images/discordBotImg3.png)
